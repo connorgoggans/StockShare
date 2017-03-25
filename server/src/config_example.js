@@ -8,7 +8,7 @@ config.firebase = {};
 config.firebase.apiKey = "YOUR API KEY HERE";
 config.firebase.databaseURL = "YOUR DATABASE URL HERE";
 
-// Braintree
+// Braintreea
 config.braintree = {};
 config.braintree.merchantId = "YOUR MERCHANT ID HERE";
 config.braintree.publicKey = "YOUR PUBLIC KEY HERE";
