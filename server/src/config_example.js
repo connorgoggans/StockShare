@@ -1,10 +1,17 @@
-// Inspired by the trvl repo
+// config.js
+// Stores secret information for API and database configuration.
 
 var config = {};
 
 // Firebase
 config.firebase = {};
-config.firebase.apiKey = "API KEY";
-config.firebase.databaseURL = "YOUR URL";
+config.firebase.apiKey = "YOUR API KEY HERE";
+config.firebase.databaseURL = "YOUR DATABASE URL HERE";
+
+// Braintree
+config.braintree = {};
+config.braintree.merchantId = "YOUR MERCHANT ID HERE";
+config.braintree.publicKey = "YOUR PUBLIC KEY HERE";
+config.braintree.privateKey = "YOUR PRIVATE KEY HERE";
 
 module.exports = config;
