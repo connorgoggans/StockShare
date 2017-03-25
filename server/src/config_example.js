@@ -14,4 +14,10 @@ config.braintree.merchantId = "YOUR MERCHANT ID HERE";
 config.braintree.publicKey = "YOUR PUBLIC KEY HERE";
 config.braintree.privateKey = "YOUR PRIVATE KEY HERE";
 
+
+//Ports
+config.ports = {};
+config.ports.listen = 3000;
+config.ports.allow = 8000;
+
 module.exports = config;
