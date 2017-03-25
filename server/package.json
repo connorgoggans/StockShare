@@ -16,9 +16,10 @@
     "url": "https://github.com/connorgoggans/StockShare/issues"
   },
   "dependencies": {
-    "cors": "~2.8.1",
+    "body-parser": "^1.17.1",
+    "braintree": "~2.0.2",
+    "cors": "^2.8.1",
     "express": "~4.15.2",
-    "firebase": "~3.7.3",
-    "braintree": "~2.0.2"
+    "firebase": "~3.7.3"
   }
 }
