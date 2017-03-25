@@ -38,3 +38,6 @@ jspm_packages
 
 # to stop Irfaan
 *.pem
+
+# API keys
+**/config.js
