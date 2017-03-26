@@ -4,6 +4,7 @@ var cors = require('cors');
 var config = require("./src/config.js");
 
 var payments = require("./src/braintree.js");
+var provider = new firebase.auth.GoogleAuthProvider();
 
 var app = express();
 
@@ -16,7 +17,17 @@ app.use(function(req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-
+// passport oauth sign-in
+firebase.auth().signInWithPopup(provider).then(function(result) {
+    var token = result.credential.accessToken;
+    var user = result.user;
+    // ...
+}).catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var email = error.email;
+    var credential = error.credential;
+});
 
 // gives the token to the client to individually authorize the payment
 app.get("/client_token", function(req, res) {
