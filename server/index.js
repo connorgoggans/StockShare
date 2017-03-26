@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var config = require("./src/config.js");
+var firebase = requre('firebase');
 
 var payments = require("./src/braintree.js");
 var stocks = require("./src/robinhood.js");
