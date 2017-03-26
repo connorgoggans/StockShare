@@ -12,14 +12,11 @@ var app = new Vue({
             float: 'left'
 
         },
-        info: [{
-            stock: "GOOG",
-            price: "$100",
-            percentage: "7%"
-        }],
+        info: [],
         amount: 0,
         a: true,
-        plainTextAmount: {}
+        plainTextAmount: {},
+        buyingStock: {}
 
 
 
@@ -86,3 +83,6 @@ function getPrice(stock, percent) {
         addTile("$" + Number(data.results[0].open).toFixed(2), stock, percent + "%");
     })
 }
+
+
+addTiles();

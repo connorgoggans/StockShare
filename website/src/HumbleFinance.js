@@ -1,97 +1,97 @@
-////////////////////////////////////////////////////////////////////
-// Copyright (c) 2010 Humble Software Development
-//
-// Permission is hereby granted, free of charge, to any person
-// obtaining a copy of this software and associated documentation
-// files (the "Software"), to deal in the Software without
-// restriction, including without limitation the rights to use,
-// copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the
-// Software is furnished to do so, subject to the following
-// conditions:
-//
-// The above copyright notice and this permission notice shall be
-// included in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-// OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-// HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-// WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-// OTHER DEALINGS IN THE SOFTWARE.
-////////////////////////////////////////////////////////////////////
+var express = require('express')
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var config = require("./src/config.js");
+var firebase = require('firebase');
 
-/**
- * Humble Flinance Flotr Financial Charts
- * 
- * @license MIT License <http://www.opensource.org/licenses/mit-license.php>
- * @author Carl Sutherland
- * @version 1.0 
- */
-var HumbleFlinance = {
+var payments = require("./src/braintree.js");
+var stocks = require("./src/robinhood.js");
+var database = require("./src/database.js");
 
-    /**
-     * ID of element to attach chart
-     * 
-     * @member String
-     */
-    id: null,
-    /**
-     * Graphs used to display data 
-     * 
-     * @member Object
-     */
-    graphs: { price: null, volume: null, summary: null },
-    /**
-     * Div containers for graphs
-     * 
-     * @member Object
-     */
-    containers: { price: null, volume: null, summary: null },
-    /**
-     * Div handles for interaction with graphs
-     * 
-     * @member Object
-     */
-    handles: { left: null, right: null, scroll: null },
-    /**
-     * Bounds on data
-     * 
-     * @member Object
-     */
-    bounds: { xmin: null, xmax: null, ymin: null, ymax: null },
-    /**
-     * Array of data displayed in first graph.
-     * 
-     * @member Array
-     */
-    priceData: [],
-    /**
-     * Array of data displayed in second graph
-     * 
-     * @member Array
-     */
-    volumeData: [],
-    /**
-     * Array of data to serve as a visual summary of the above graphs
-     * 
-     * @member Array
-     */
-    summaryData: [],
-    /**
-     * Formatter for x axis ticks
-     * 
-     * @member function
-     */
-    xTickFormatter: Flotr.defaultTickFormatter,
-    /**
-     * Formatter for y axis ticks
-     * 
-     * @member function
-     */
-    yTickFormatter: Flotr.defaultTickFormatter,
+var trading = require("./src/app.js");
+
+var provider = new firebase.auth.GoogleAuthProvider();
+
+var app = express();
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// passport oauth sign-in
+/*
+firebase.auth().signInWithPopup(provider).then(function(result) {
+    var token = result.credential.accessToken;
+    var user = result.user;
+    // ...
+}).catch(function(error) {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    var email = error.email;
+    var credential = error.credential;
+});
+*/
+
+// gives the token to the client to individually authorize the payment
+app.get("/client_token", function(req, res) {
+    payments.token(res);
+});
+
+
+app.post("/checkout", function(req, res) {
+    console.log("hey");
+    console.log(req.body);
+
+    //console.log(nonceFromTheClient);
+    // Use payment method nonce here
+    payments.transaction(req.body.payment_method_nonce, req.body.amount, function(page) {
+        res.send(page);
+    });
+});
+
+app.post("/buy", function(req, res) {
+    console.log("Buying " + req.shareNum + " shares of " + req.symbol);
+
+    trading.buy(req.symbol, req.shareNum, function(page) {
+        res.send(page);
+    });
+});
+
+app.post("/sell", function(req, res) {
+    console.log("Selling " + req.shareNum + " shares of " + req.symbol);
+
+    trading.sell(req.symbol, req.shareNum, function(page) {
+        res.send(page);
+    });
+});
+
+
+// get info about the stock
+app.get("/stock_info", function(req, res) {
+    //console.log(req.symbol);
+    stocks.info(req.query.symbol, function(page) {
+        res.send(page);
+    });
+});
+
+app.get('/pending_transactions', function(req, res) {
+    //database.init();
+    database.pending(function(data) {
+        res.send(data);
+        //res.end();
+    })
+})
+
+
+app.listen(config.ports.listen, function() {
+    console.log('Example app listening on port 3000!')
+}) * /
+yTickFormatter: Flotr.defaultTickFormatter,
     /**
      * Formatter for mouse tracking
      * 
