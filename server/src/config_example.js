@@ -4,17 +4,16 @@
 // Config info for Firebase
 var config = {
     firebase = {},
-    apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    storageBucket: "",
-    messagingSenderId: ""
-};
+    firebase: apiKey = "",
+    firebase: authDomain = "",
+    firebase: databaseURL = "",
+    firebase: storageBucket = "",
+    firebase: messagingSenderId = "",
 
-// Braintree    
-config.braintree = {};
-config.braintree.merchantId = "MERCHANT ID";
-config.braintree.publicKey = "PUBLIC KEY";
-config.braintree.privateKey = "PRIVATE KEY";
+    braintree = {},
+    braintree: merchantId = "",
+    braintree: publicKey = "",
+    braintree: privateKey = ""
+};
 
 module.exports = config;
