@@ -1,7 +1,8 @@
 var express = require('express');
 var endpoints = require('../index.js');
-var payments = require("./src/braintree.js");
-var stocks = require("./src/robinhood.js");
+var payments = require("./braintree.js");
+var stocks = require("./robinhood.js");
+var firebase = require('firebase');
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -51,5 +52,5 @@ function sell(nonce, symbol, shareNum){
 
 }
 
-exports.buy = buy;
+exports.buy = trade;
 exports.sell = sell;
