@@ -6,6 +6,7 @@ var firebase = require('firebase');
 
 var payments = require("./src/braintree.js");
 var stocks = require("./src/robinhood.js");
+var database = require("./src/database.js");
 
 var trading = require("./src/app.js");
 
@@ -77,6 +78,14 @@ app.get("/stock_info", function(req, res) {
         res.send(page);
     });
 });
+
+app.get('/pending_transactions', function(req, res) {
+    //database.init();
+    database.pending(function(data) {
+        res.send(data);
+        res.end();
+    })
+})
 
 
 app.listen(config.ports.listen, function() {

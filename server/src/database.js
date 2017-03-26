@@ -27,8 +27,9 @@ function get_pending(callback) {
                 result.push(snapshot.val());
             }
             sum_weight = 0;
-            callback(result);
+
         });
+        callback(result);
     });
 }
 
@@ -72,18 +73,28 @@ function get_sales(callback) {
 }
 
 // Tabulate the vote
-function tabulate_vote(stock, user) {
-    // Find user
-    var ref = firebase.database().ref("stocks/" + stock + "/users/" + user);
-    var result;
-    ref.on("value", function(snapshot) {
-      result = snapshot.val();
-      ref.update({
-        "value": result
-      })
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
+function tabulate_vote(stock, user, callback) {
+    var newkey = firebase.database().ref("stocks/" + stock + "/users/" + user);
+    var oldkey = firebase.database().ref("stocks/" + stock + "/vote/");
+
+    var newpercent;
+    var oldpercent;
+
+    newkey.on("value", function(snapshot) {
+        newpercent = snapshot.val();
+        callback(newpercent);
+        //var vote = firebase.database().ref("stocks/" + stock + "/users/");
     });
+
+    oldkey.on("value", function(snapshot) {
+        oldpercent = snapshot.val();
+        var update = { vote: oldpercent + newpercent };
+        firebase.database().ref().update(update);
+        callback(update);
+    });
+
+
+    //firebase.database().ref().update(update);
 }
 
 //Test calls
@@ -98,11 +109,15 @@ function tabulate_vote(stock, user) {
 //     console.log(JSON.stringify(data));
 // });
 
-//tabulate_vote("F", "user1");
+tabulate_vote("F", "user1", function(data) {
+    console.log(JSON.stringify(data));
+});
+
+
 
 // Conclude
 exports.init = initializeFirebase;
+exports.pending = get_pending;
 exports.complete = get_complete;
 exports.sales = get_sales;
-exports.pending = get_pending;
-module.exports = firebase;
+exports.addVote = tabulate_vote;
