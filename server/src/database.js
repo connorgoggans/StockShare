@@ -74,20 +74,22 @@ function get_sales(callback) {
 // Tabulate the vote
 function tabulate_vote(stock, user) {
     // Find user
-    var parent = firebase.database().ref("stocks/users").child(user);
-    var val = parent.child(user);
-    console.log(val);
-    var vote = parent[val];
-    // Percentage of share
-    //var pct = val;
-    // New data for the stock
-
+    var ref = firebase.database().ref("stocks/" + stock + "/users/" + user);
+    var result;
+    ref.on("value", function(snapshot) {
+      result = snapshot.val();
+      ref.update({
+        "value": result
+      })
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
 }
 
-// Test calls
-// get_pending(function(data) {
+//Test calls
+//get_pending(function(data) {
 //     console.log(JSON.stringify(data));
-// });
+//});
 
 // get_complete(function(data) {
 //     console.log(JSON.stringify(data));
@@ -96,8 +98,11 @@ function tabulate_vote(stock, user) {
 //     console.log(JSON.stringify(data));
 // });
 
-tabulate_vote("F", "user1");
+//tabulate_vote("F", "user1");
 
 // Conclude
 exports.init = initializeFirebase;
+exports.complete = get_complete;
+exports.sales = get_sales;
+exports.pending = get_pending;
 module.exports = firebase;
