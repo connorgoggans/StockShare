@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // passport oauth sign-in
+/*
 firebase.auth().signInWithPopup(provider).then(function(result) {
     var token = result.credential.accessToken;
     var user = result.user;
@@ -31,6 +32,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
     var email = error.email;
     var credential = error.credential;
 });
+*/
 
 // gives the token to the client to individually authorize the payment
 app.get("/client_token", function(req, res) {
@@ -67,7 +69,8 @@ app.post("/sell", function(req, res) {
 
 // get info about the stock
 app.get("/stock_info", function(req, res) {
-    stocks.get(req.symbol, function(page) {
+    //console.log(req.symbol);
+    stocks.info(req.query.symbol, function(page) {
         res.send(page);
     });
 });
