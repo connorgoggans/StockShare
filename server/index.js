@@ -45,7 +45,7 @@ app.get("/client_token", function(req, res) {
 
 app.post("/checkout", function(req, res) {
     console.log("hey");
-    console.log(req.body);
+    console.log(req.body.amount);
 
     //console.log(nonceFromTheClient);
     // Use payment method nonce here
@@ -83,7 +83,7 @@ app.get('/pending_transactions', function(req, res) {
     //database.init();
     database.pending(function(data) {
         res.send(data);
-        res.end();
+        //res.end();
     })
 })
 

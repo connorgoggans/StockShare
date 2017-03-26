@@ -2,12 +2,15 @@ var form = document.querySelector('#checkout-form');
 var submit = document.querySelector('input[type="submit"]');
 
 
-$.get("http://localhost:3000/client_token", function(data) {
-    console.log(data);
-    createBraintreeUI(data);
-})
+function initializeBraintree() {
 
 
+    $.get("http://localhost:3000/client_token", function(data) {
+        console.log(data);
+        createBraintreeUI(data);
+    })
+
+}
 
 
 
@@ -24,7 +27,7 @@ function createBraintreeUI(auth) {
             return;
         }
         submitButton.addEventListener('click', function() {
-            var amount = document.querySelector("#amount").value;
+            var amount = app.amount;
             submitButton.innerHTML = "Confirm $" + amount;
             dropinInstance.requestPaymentMethod(function(err, payload) {
                 if (err) {

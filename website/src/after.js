@@ -11,20 +11,78 @@ var app = new Vue({
             margin: '10px',
             float: 'left'
 
-        }
-    }
+        },
+        info: [{
+            stock: "GOOG",
+            price: "$100",
+            percentage: "7%"
+        }],
+        amount: 0,
+        a: true,
+        plainTextAmount: {}
+
+
+
+    },
+
 });
 
 
 function addTile(price, stock, percent) {
-    var app = document.getElementById('app');
-    var tile = document.createElement('tile');
 
-    tile.setAttribute('v-bind:style', 'style');
-    tile.setAttribute('price', price);
-    tile.setAttribute('stock', stock);
-    tile.setAttribute('percentage', percent);
+    app.info.push({ "stock": stock, "price": price, "percentage": percent });
 
-    return tile;
+    /* var app = document.getElementById('left');
+     var tile = document.createElement('tile');
 
+     tile.setAttribute('v-bind:style', 'style');
+     tile.setAttribute('price', price);
+     tile.setAttribute('stock', stock);
+     tile.setAttribute('percentage', percent);
+
+
+     app.appendChild(tile);
+     return tile;
+     */
+
+}
+
+function addTiles() {
+    $.get("http://localhost:3000/pending_transactions", function(data) {
+        var keys = Object.keys(data[0]);
+        console.log(keys);
+        for (var i = 0; i < keys.length; i++) {
+            getPrice(keys[i], sumKeys(data[0][keys[i]]["users"]));
+            // console.log("b");
+        }
+    })
+}
+Object.size = function(obj) {
+    var size = 0,
+        key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
+
+function sumKeys(json) {
+    console.log(JSON.stringify(json));
+    var keys = Object.keys(json);
+    console.log(JSON.stringify(keys) + " " + keys.length);
+    var sum = 0;
+    for (var i = 0; i < keys.length; i++) {
+        sum = sum + json[keys[i]];
+        // console.log("a");
+
+    }
+    console.log(sum);
+    return sum;
+
+}
+
+function getPrice(stock, percent) {
+    $.get('http://localhost:3000/stock_info', { "symbol": stock }, function(data) {
+        addTile("$" + Number(data.results[0].open).toFixed(2), stock, percent + "%");
+    })
 }
