@@ -48,23 +48,28 @@ app.post("/checkout", function(req, res) {
     });
 });
 
-app.post("/buy", function(req, res){
-  console.log("Buying " + req.shareNum+ " shares of " + req.symbol);
+app.post("/buy", function(req, res) {
+    console.log("Buying " + req.shareNum + " shares of " + req.symbol);
 
-  stocks.buy(req.symbol, req.shareNum, function(page){
-    res.send(page);
-  });
+    stocks.buy(req.symbol, req.shareNum, function(page) {
+        res.send(page);
+    });
 });
 
-app.post("/sell", function(req, res){
-  console.log("Selling " + req.shareNum+ " shares of " + req.symbol);
+app.post("/sell", function(req, res) {
+    console.log("Selling " + req.shareNum + " shares of " + req.symbol);
 
-  stocks.sell(req.symbol, req.shareNum, function(page){
-    res.send(page);
-  });
+    stocks.sell(req.symbol, req.shareNum, function(page) {
+        res.send(page);
+    });
 });
 
-
+// get info about the stock
+app.get("/stock_info", function(req, res) {
+    stocks.get(req.symbol, function(page) {
+        res.send(page);
+    });
+});
 
 app.listen(config.ports.listen, function() {
     console.log('Example app listening on port 3000!')
