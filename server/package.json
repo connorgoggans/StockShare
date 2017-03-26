@@ -20,6 +20,7 @@
     "braintree": "~2.0.2",
     "cors": "^2.8.1",
     "express": "~4.15.2",
-    "firebase": "~3.7.3"
+    "firebase": "~3.7.3",
+    "passport-oauth": "~1.0.0"
   }
 }
