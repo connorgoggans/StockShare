@@ -73,15 +73,28 @@ function get_sales(callback) {
 }
 
 // Tabulate the vote
-function tabulate_vote(stock, user) {
-    // Find user
-    var parent = firebase.database().ref("stocks/users").child(user);
-    var val = parent.child(user);
-    console.log(val);
-    var vote = parent[val];
-    // Percentage of share
-    //var pct = val;
-    // New data for the stock
+function tabulate_vote(stock, user, callback) {
+    var newkey = firebase.database().ref("stocks/" + stock + "/users/" + user);
+    var oldkey = firebase.database().ref("stocks/" + stock + "/vote/");
+
+    var newpercent;
+    var oldpercent;
+
+    newkey.on("value", function(snapshot) {
+        newpercent = snapshot.val();
+        callback(newpercent);
+        //var vote = firebase.database().ref("stocks/" + stock + "/users/");
+    });
+
+    oldkey.on("value", function(snapshot) {
+        oldpercent = snapshot.val();
+        var update = { vote: oldpercent + newpercent };
+        firebase.database().ref().update(update);
+        callback(update);
+    });
+
+
+    //firebase.database().ref().update(update);
 
 }
 
@@ -97,7 +110,9 @@ function tabulate_vote(stock, user) {
 //     console.log(JSON.stringify(data));
 // });
 
-tabulate_vote("F", "user1");
+tabulate_vote("F", "user1", function(data) {
+    console.log(JSON.stringify(data));
+});
 
 
 
