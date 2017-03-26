@@ -101,9 +101,10 @@ function tabulate_vote(stock, user, callback) {
 }
 
 // Adds a buyer and automatically does 10%
-function add_buyer(stock, name, callback) {
+function add_buyer(stock, name) {
     var update = { name: Number(10) };
     firebase.database().ref("stocks/" + stock + "/users/").update(update);
+
 }
 
 //Test calls
