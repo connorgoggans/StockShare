@@ -4,6 +4,8 @@ var cors = require('cors');
 var config = require("./src/config.js");
 
 var payments = require("./src/braintree.js");
+var stocks = require("./src/robinhood.js");
+
 var provider = new firebase.auth.GoogleAuthProvider();
 
 var app = express();
@@ -45,6 +47,24 @@ app.post("/checkout", function(req, res) {
         res.send(page);
     });
 });
+
+app.post("/buy", function(req, res){
+  console.log("Buying " + req.shareNum+ " shares of " + req.symbol);
+
+  stocks.buy(req.symbol, req.shareNum, function(page){
+    res.send(page);
+  });
+});
+
+app.post("/sell", function(req, res){
+  console.log("Selling " + req.shareNum+ " shares of " + req.symbol);
+
+  stocks.sell(req.symbol, req.shareNum, function(page){
+    res.send(page);
+  });
+});
+
+
 
 app.listen(config.ports.listen, function() {
     console.log('Example app listening on port 3000!')
