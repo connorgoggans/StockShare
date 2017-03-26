@@ -55,17 +55,15 @@ app.post("/checkout", function(req, res) {
 });
 
 app.post("/buy", function(req, res) {
-    console.log("Buying " + req.shareNum + " shares of " + req.symbol);
 
-    trading.buy(req.nonce, req.symbol, req.shareNum, function(page) {
+    trading.buy(req.nonce, req.symbol, function(page) {
         res.send(page);
     });
 });
 
 app.post("/sell", function(req, res) {
-    console.log("Selling " + req.shareNum + " shares of " + req.symbol);
 
-    trading.sell(req.nonce, req.symbol, req.shareNum, req.user, function(page) {
+    trading.sell(req.nonce, req.symbol, req.user, function(page) {
         res.send(page);
     });
 });

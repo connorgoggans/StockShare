@@ -102,7 +102,7 @@ function tabulate_vote(stock, user, callback) {
 
 // Adds a buyer and automatically does 10%
 function add_buyer(stock, name) {
-    var update = { name: Number(10) };
+    var update = { newUser: Number(10) };
     firebase.database().ref("stocks/" + stock + "/users/").update(update);
 
 }
@@ -127,3 +127,4 @@ exports.pending = get_pending;
 exports.complete = get_complete;
 exports.sales = get_sales;
 exports.addVote = tabulate_vote;
+exports.addBuyer = add_buyer;
