@@ -88,20 +88,22 @@ function tabulate_vote(stock, user, callback) {
 
     oldkey.on("value", function(snapshot) {
         oldpercent = snapshot.val();
-        var update = { vote: oldpercent + newpercent };
-        firebase.database().ref().update(update);
+        //console.log("old:" + oldpercent);
+        var newVal = Number(oldpercent) + Number(newpercent);
+        //console.log("new:" + newVal);
+        var update = { vote: newVal };
+        firebase.database().ref("stocks/" + stock).update(update);
         callback(update);
     });
+
+
+    //firebase.database().ref().update(update);
 }
 
-function add_buyer(stock, user, name, callback) {
-
-}
-
-// Test calls
-// get_pending(function(data) {
+//Test calls
+//get_pending(function(data) {
 //     console.log(JSON.stringify(data));
-// });
+//});
 
 // get_complete(function(data) {
 //     console.log(JSON.stringify(data));
@@ -110,13 +112,11 @@ function add_buyer(stock, user, name, callback) {
 //     console.log(JSON.stringify(data));
 // });
 
-tabulate_vote("F", "user1", function(data) {
-    console.log(JSON.stringify(data));
-});
-
 
 
 // Conclude
 exports.init = initializeFirebase;
 exports.pending = get_pending;
 exports.complete = get_complete;
+exports.sales = get_sales;
+exports.addVote = tabulate_vote;
