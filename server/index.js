@@ -45,7 +45,7 @@ app.get("/client_token", function(req, res) {
 
 app.post("/checkout", function(req, res) {
     console.log("hey");
-    console.log(req.body.amount);
+    console.log(req.body);
 
     //console.log(nonceFromTheClient);
     // Use payment method nonce here
@@ -57,7 +57,7 @@ app.post("/checkout", function(req, res) {
 app.post("/buy", function(req, res) {
     console.log("Buying " + req.shareNum + " shares of " + req.symbol);
 
-    trading.buy(req.symbol, req.shareNum, function(page) {
+    trading.buy(req.nonce, req.symbol, req.shareNum, function(page) {
         res.send(page);
     });
 });
@@ -65,7 +65,7 @@ app.post("/buy", function(req, res) {
 app.post("/sell", function(req, res) {
     console.log("Selling " + req.shareNum + " shares of " + req.symbol);
 
-    trading.sell(req.symbol, req.shareNum, function(page) {
+    trading.sell(req.nonce, req.symbol, req.shareNum, req.user, function(page) {
         res.send(page);
     });
 });
@@ -83,7 +83,7 @@ app.get('/pending_transactions', function(req, res) {
     //database.init();
     database.pending(function(data) {
         res.send(data);
-        //res.end();
+        res.end();
     })
 })
 
