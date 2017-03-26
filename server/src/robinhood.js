@@ -1,7 +1,7 @@
 var credentials = require("./masterAccountCredentials.js");
 
 
-function buyAction(symbol)(){
+function buyAction(symbol, callback){
   var Robinhood = require('robinhood')(credentials, function(){
       Robinhood.instruments(symbol,function(err, response, body){
           if(err){
@@ -27,6 +27,7 @@ function buyAction(symbol)(){
                       console.error(error);
                   }else{
                       console.log(body);
+                      callback("Success");
                   }
               })
           }
@@ -35,7 +36,7 @@ function buyAction(symbol)(){
   });
 }
 
-function sellAction(symbol)(){
+function sellAction(symbol,callback){
   var Robinhood = require('robinhood')(credentials, function(){
       Robinhood.instruments(symbol,function(err, response, body){
           if(err){
@@ -61,6 +62,7 @@ function sellAction(symbol)(){
                       console.error(error);
                   }else{
                       console.log(body);
+                      callback("Success");
                   }
               })
           }
@@ -69,13 +71,14 @@ function sellAction(symbol)(){
   });
 }
 
-function getStockInfo(symbol(){
+function getStockInfo(symbol, callback){
   var Robinhood = require('robinhood')(credentials, function(){
     Robinhood.fundamentals(symbol, function(error, response, body){
         if(error){
             console.error(error);
         }else{
             console.log(body);
+            callback(body);
             //{                               // Example for SBPH
             //    average_volume: string,     // "14381.0215"
             //    description: string,        // "Spring Bank Pharmaceuticals, Inc. [...]"
@@ -92,8 +95,8 @@ function getStockInfo(symbol(){
             //}
         }
     })
-});
-})
+  });
+}
 
 exports.buy = buyAction;
 exports.sell = sellAction;
