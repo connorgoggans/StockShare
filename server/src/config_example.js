@@ -1,16 +1,20 @@
-// Inspired by the trvl repo
+// config.js
+// Stores secret information for API and database configuration.
 
-var config = {};
+// Config info for Firebase
+var config = {
+    firebase = {},
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    storageBucket: "",
+    messagingSenderId: ""
+};
 
-// Firebase
-config.firebase = {};
-config.firebase.apiKey = "API KEY";
-config.firebase.databaseURL = "YOUR URL";
-
-
-//Ports
-config.ports = {};
-config.ports.listen = 3000;
-config.ports.allow = 8000;
+// Braintree
+config.braintree = {};
+config.braintree.merchantId = "";
+config.braintree.publicKey = "";
+config.braintree.privateKey = "";
 
 module.exports = config;
