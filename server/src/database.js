@@ -27,8 +27,9 @@ function get_pending(callback) {
                 result.push(snapshot.val());
             }
             sum_weight = 0;
-            callback(result);
+
         });
+        callback(result);
     });
 }
 
@@ -98,6 +99,9 @@ function tabulate_vote(stock, user) {
 
 tabulate_vote("F", "user1");
 
+
+
 // Conclude
 exports.init = initializeFirebase;
-module.exports = firebase;
+exports.pending = get_pending;
+exports.complete = get_complete;
