@@ -29,3 +29,20 @@ h4 {
 .percentage {
     color: blue;
 }
+
+#left,
+#right {
+    display: flex;
+    float: left;
+}
+
+#left {}
+
+#right {}
+
+#dropin-container,
+#submit-button,
+#price-text {
+    display: block;
+    float: none;
+}

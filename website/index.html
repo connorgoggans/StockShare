@@ -7,22 +7,39 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="src/style.css" type="text/css">
     <script src="https://unpkg.com/vue"></script>
+
+    <script src="https://js.braintreegateway.com/web/dropin/1.0.0-beta.5/js/dropin.min.js"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="src/braintree.js"></script>
+
+
     <script src="src/before.js"></script>
+
 </head>
 
 <body>
 
     <div id="app">
-        <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
-        <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
-        <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
-        <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
-        <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+        <div id="left">
+            <!---      <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+            <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+            <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+            <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+            <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+     !-->
+            <tile v-bind:style='style' price="$470" stock="GOOG" percentage="27%"></tile>
+            <tile v-bind:style='style' v-for="item in info" v-bind:info="item"></tile>
+        </div>
+        <div id="right">
+            <div id="price-text">
+                <p v-if="amount!=0">{{plainTextAmount}}</p>
+            </div>
+            <braintree v-if="amount!=0"></braintree>
+        </div>
     </div>
-
     <script src="src/after.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js" type="text/javascript"></script>
 
 </body>
 
