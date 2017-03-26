@@ -17,7 +17,7 @@ function generateToken(res) {
     });
 }
 
-function executeTransaction(paymentNonce, amount, displayWebpage) {
+function executeTransaction(paymentNonce, amount, callback) {
     gateway.transaction.sale({
         amount: amount,
         paymentMethodNonce: paymentNonce,
@@ -25,8 +25,13 @@ function executeTransaction(paymentNonce, amount, displayWebpage) {
             submitForSettlement: true
         }
     }, function(err, result) {
-        displayWebpage("Errors: " + JSON.stringify(err) + "\n" + "Results: " +
-            JSON.stringify(result));
+      if(err){
+        callback(false);
+      }else{
+        callback(true);
+      }
+        //displayWebpage("Errors: " + JSON.stringify(err) + "\n" + "Results: " +
+            //JSON.stringify(result));
     });
 }
 

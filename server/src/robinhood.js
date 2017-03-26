@@ -1,4 +1,6 @@
-var credentials = require("./masterAccountCredentials.js");
+var config = require("./config.js");
+var credentials = config.credentials;
+
 
 
 function buyAction(symbol, shareNum, callback){
@@ -25,9 +27,10 @@ function buyAction(symbol, shareNum, callback){
               Robinhood.place_buy_order(options, function(error, response, body){
                   if(error){
                       console.error(error);
+                      callback(false)
                   }else{
                       console.log(body);
-                      callback("Success");
+                      callback(true);
                   }
               })
           }
@@ -60,9 +63,10 @@ function sellAction(symbol,shareNum, callback){
               Robinhood.place_sell_order(options, function(error, response, body){
                   if(error){
                       console.error(error);
+                      callback(false)
                   }else{
                       console.log(body);
-                      callback("Success");
+                      callback(true);
                   }
               })
           }

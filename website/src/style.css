@@ -1,0 +1,31 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0px;
+}
+
+#app {
+    margin-left: 0px;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    font-size: 20px;
+    margin-top: 0px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+.price {
+    color: darkgreen;
+}
+
+.percentage {
+    color: blue;
+}
