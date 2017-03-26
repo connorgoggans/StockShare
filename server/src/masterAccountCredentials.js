@@ -1,0 +1,4 @@
+var credentials = {
+    username: '',
+    password: ''
+};
