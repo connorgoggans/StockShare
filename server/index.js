@@ -64,13 +64,6 @@ app.post("/sell", function(req, res) {
     });
 });
 
-// get info about the stock
-app.get("/stock_info", function(req, res) {
-    stocks.get(req.symbol, function(page) {
-        res.send(page);
-    });
-});
-
 app.listen(config.ports.listen, function() {
     console.log('Example app listening on port 3000!')
 })
