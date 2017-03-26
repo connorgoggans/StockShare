@@ -1,8 +1,8 @@
 // config.js
 // Stores secret information for API and database configuration.
 
-// Config info for Firebase
 var config = {
+    // Firebase
     firebase = {},
     firebase: apiKey = "",
     firebase: authDomain = "",
@@ -10,10 +10,16 @@ var config = {
     firebase: storageBucket = "",
     firebase: messagingSenderId = "",
 
+    // Braintree
     braintree = {},
     braintree: merchantId = "",
     braintree: publicKey = "",
-    braintree: privateKey = ""
+    braintree: privateKey = "",
+
+    // Ports
+    ports = {},
+    ports: listen = 3000,
+    ports: allow = 8000
 };
 
 module.exports = config;
