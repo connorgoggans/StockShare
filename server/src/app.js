@@ -8,11 +8,10 @@ var app = express();
 // one get - info about the stock
 // get info about the stock
 app.get("/stock_info", function(req, res) {
-    stocks.get(req.symbol, function(page) {
+    stocks.info(req.symbol, function(page) {
         res.send(page);
     });
 });
-
 
 // one post - trade
 function trade(){
