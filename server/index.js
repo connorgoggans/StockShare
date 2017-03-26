@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var config = require("./src/config.js");
+var firebase = require('firebase');
 
 var payments = require("./src/braintree.js");
 var stocks = require("./src/robinhood.js");
@@ -20,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // passport oauth sign-in
+/*
 firebase.auth().signInWithPopup(provider).then(function(result) {
     var token = result.credential.accessToken;
     var user = result.user;
@@ -30,6 +32,7 @@ firebase.auth().signInWithPopup(provider).then(function(result) {
     var email = error.email;
     var credential = error.credential;
 });
+*/
 
 // gives the token to the client to individually authorize the payment
 app.get("/client_token", function(req, res) {
@@ -60,6 +63,15 @@ app.post("/sell", function(req, res) {
     console.log("Selling " + req.shareNum + " shares of " + req.symbol);
 
     stocks.sell(req.symbol, req.shareNum, function(page) {
+        res.send(page);
+    });
+});
+
+
+// get info about the stock
+app.get("/stock_info", function(req, res) {
+    //console.log(req.symbol);
+    stocks.info(req.query.symbol, function(page) {
         res.send(page);
     });
 });

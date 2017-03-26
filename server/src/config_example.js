@@ -11,10 +11,10 @@ var config = {
     messagingSenderId: ""
 };
 
-// Braintree
+// Braintree    
 config.braintree = {};
-config.braintree.merchantId = "";
-config.braintree.publicKey = "";
-config.braintree.privateKey = "";
+config.braintree.merchantId = "MERCHANT ID";
+config.braintree.publicKey = "PUBLIC KEY";
+config.braintree.privateKey = "PRIVATE KEY";
 
 module.exports = config;
