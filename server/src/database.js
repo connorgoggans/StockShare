@@ -27,8 +27,9 @@ function get_pending(callback) {
                 result.push(snapshot.val());
             }
             sum_weight = 0;
-            callback(result);
+
         });
+        callback(result);
     });
 }
 
@@ -113,6 +114,9 @@ tabulate_vote("F", "user1", function(data) {
     console.log(JSON.stringify(data));
 });
 
+
+
 // Conclude
 exports.init = initializeFirebase;
-module.exports = firebase;
+exports.pending = get_pending;
+exports.complete = get_complete;
