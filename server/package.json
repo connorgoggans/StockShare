@@ -1,26 +1,25 @@
 {
-  "name": "server",
-  "version": "0.0.1",
-  "description": "Node.js backend for the StockShare application.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/connorgoggans/StockShare.git"
-  },
-  "author": "Connor Goggans, Benjamin Cooper, Irfaan Khalid",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/connorgoggans/StockShare/issues"
-  },
-  "dependencies": {
-    "body-parser": "^1.17.1",
-    "braintree": "~2.0.2",
-    "cors": "^2.8.1",
-    "express": "~4.15.2",
-    "firebase": "~3.7.3",
-    "passport-oauth": "~1.0.0"
-  }
+    "name": "server",
+    "version": "0.0.1",
+    "description": "Node.js backend for the StockShare application.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/connorgoggans/StockShare.git"
+    },
+    "author": "Connor Goggans, Benjamin Cooper, Irfaan Khalid",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/connorgoggans/StockShare/issues"
+    },
+    "dependencies": {
+        "body-parser": "^1.17.1",
+        "braintree": "~2.0.2",
+        "cors": "^2.8.1",
+        "express": "~4.15.2",
+        "firebase": "~3.7.3"
+    }
 }
