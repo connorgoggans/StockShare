@@ -92,9 +92,9 @@ function tabulate_vote(stock, user, callback) {
         firebase.database().ref().update(update);
         callback(update);
     });
+}
 
-
-    //firebase.database().ref().update(update);
+function add_buyer(stock, user, name, callback) {
 
 }
 
