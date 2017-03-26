@@ -1,4 +1,6 @@
-var credentials = require("./masterAccountCredentials.js");
+var config = require("./config.js");
+var credentials = config.credentials;
+
 
 
 function buyAction(symbol, shareNum, callback){
