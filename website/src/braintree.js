@@ -35,11 +35,11 @@ function createBraintreeUI(auth) {
                 }
 
                 var noncePayload = {
-                    "payment_method_nonce": payload.nonce,
-                    "amount": amount
+                    "nonce": payload.nonce,
+                    "symbol": app.buyingStock
                 };
 
-                $.post("http://localhost:3000/checkout", noncePayload);
+                $.post("http://localhost:3000/buy", noncePayload);
                 // Send payload.nonce to your server
             });
         });

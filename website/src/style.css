@@ -30,15 +30,18 @@ h4 {
     color: blue;
 }
 
-#left,
-#right {
-    display: flex;
+#left {
+    display: block;
     float: left;
 }
 
-#left {}
+#right {
+    overflow: hidden
+}
 
-#right {}
+#dropin-container {
+    width: 450px
+}
 
 #dropin-container,
 #submit-button,
