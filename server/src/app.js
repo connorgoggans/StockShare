@@ -1,23 +1,55 @@
 var express = require('express');
 var endpoints = require('../index.js');
+var payments = require("./src/braintree.js");
+var stocks = require("./src/robinhood.js");
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
 var app = express();
 
-// one get - info about the stock
-// get info about the stock
-app.get("/stock_info", function(req, res) {
-    stocks.info(req.symbol, function(page) {
-        res.send(page);
-    });
-});
 
-// one post - trade
-function trade(){
+
+// Trade Function
+function trade(nonce,symbol, shareNum){
+  //TODO: needs to get investor data from firebase and do
+  //BT for each investor
+  //should change price by fractional share for each
+  var price = shareNum * (stocks.getStockInfo(symbol).open);
+  payments.executeTransaction(nonce, price, function(successFlag){
+    if(!successFlag){
+      console.log('Braintree transaction failed');
+      return;
+    }
+  });
+
+  stocks.buy(symbol, shareNum, function(successFlag){
+    if(!successFlag){
+      console.log('Robinhood transaction failed');
+      return;
+    }
+  });
 
 }
-// one post - sell
-function sell(){
+
+// Sell Function
+function sell(nonce, symbol, shareNum){
+  stocks.sell(symbol, shareNum, function(successFlag){
+    if(!successFlag){
+      console.log('Robinhood transaction failed');
+      return;
+    }
+  });
+
+  //TODO: Should happen for each investor in firebase
+  var price = shareNum * (stocks.getStockInfo(symbol).open);
+  payments.executeTransaction(nonce, price, function(successFlag){
+    if(!successFlag){
+      console.log('Braintree transaction failed');
+      return;
+    }
+  });
 
 }
+
+exports.buy = buy;
+exports.sell = sell;
