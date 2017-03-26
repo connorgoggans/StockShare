@@ -1,7 +1,7 @@
 var credentials = require("./masterAccountCredentials.js");
 
 
-function buyAction(symbol, callback){
+function buyAction(symbol, shareNum, callback){
   var Robinhood = require('robinhood')(credentials, function(){
       Robinhood.instruments(symbol,function(err, response, body){
           if(err){
@@ -14,7 +14,7 @@ function buyAction(symbol, callback){
 
               var options = {
                   type: 'limit',
-                  quantity: 1,
+                  quantity: shareNum,
                   bid_price: 1.00,
                   instrument: {
                     url: url,
@@ -36,7 +36,7 @@ function buyAction(symbol, callback){
   });
 }
 
-function sellAction(symbol,callback){
+function sellAction(symbol,shareNum, callback){
   var Robinhood = require('robinhood')(credentials, function(){
       Robinhood.instruments(symbol,function(err, response, body){
           if(err){
@@ -49,7 +49,7 @@ function sellAction(symbol,callback){
 
               var options = {
                   type: 'limit',
-                  quantity: 1,
+                  quantity: shareNum,
                   bid_price: 1.00,
                   instrument: {
                     url: url,
