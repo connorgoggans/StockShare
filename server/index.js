@@ -67,6 +67,7 @@ app.post("/sell", function(req, res) {
     });
 });
 
+
 // get info about the stock
 app.get("/stock_info", function(req, res) {
     //console.log(req.symbol);
